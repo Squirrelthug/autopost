@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QFileDialog
+from PyQt5.QtWidgets import QWidget, QFileDialog, QVBoxLayout, QLabel, QPushButton, QMessageBox
 
 class MediaSelection(QWidget):
     """
@@ -8,6 +8,8 @@ class MediaSelection(QWidget):
         super().__init__()
         self.media_display = media_display
         self.posted_media_list = posted_media_list
+        self.selected_media = {}  # Add this line to initialize the attribute
+
         layout = QVBoxLayout()
 
         choose_master_dir_btn = QPushButton("Choose master directory")

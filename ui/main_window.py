@@ -9,10 +9,10 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle('Social Media Manager')
 
-        # Create media_display and media_selection instances
+        # Create media_display, media_selection, and posted_media_list instances
         self.media_display = MediaDisplay()
-        self.media_selection = MediaSelection(self.media_display)
         self.posted_media_list = PostedMediaList()
+        self.media_selection = MediaSelection(self.media_display, self.posted_media_list)  # Pass posted_media_list here
 
         # Create a main layout and add media_display, media_selection, and posted_media_list
         main_layout = QVBoxLayout()

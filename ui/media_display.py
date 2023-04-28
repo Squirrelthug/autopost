@@ -1,3 +1,5 @@
+import pyheif
+from PIL import Image, ImageQt
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
@@ -25,9 +27,22 @@ class MediaDisplay(QWidget):
 
         # Iterate through the file paths and create thumbnails
         for idx, file_path in enumerate(file_paths):
-            pixmap = QPixmap(file_path)
-            scaled_pixmap = pixmap.scaled(100, 100, Qt.KeepAspectRatio)
             label = QLabel()
+
+            if file_path.lower().endswith(".heic"):
+                heif_file = pyheif.read(file_path)
+                image = Image.frombytes(
+                    heif_file.mode,
+                    heif_file.size,
+                    heif_file.data,
+                    "raw",
+                    heif_file.mode
+                )
+                pixmap = QPixmap.fromImage(ImageQt.ImageQt(image))
+            else:
+                pixmap = QPixmap(file_path)
+
+            scaled_pixmap = pixmap.scaled(100, 100, Qt.KeepAspectRatio)
             label.setPixmap(scaled_pixmap)
 
             # Add the thumbnail to the grid layout
